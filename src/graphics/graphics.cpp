@@ -1,1 +1,5 @@
-#include <SDL2.h>
+#include "graphics.h"
+
+using namespace std;
+
+void message() { cout << "Yes!" << endl; }
