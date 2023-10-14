@@ -1,3 +1,41 @@
 *.pdf
 assets/*
 make/*
+
+# Media files
+*.png
+*.jpg
+*.bmp
+*.gif
+*.tiff
+*.webv
+*.3gp
+*.mp3
+*.mp4
+*.m4a
+*.ogg
+*.avi
+*.VOB
+*.ico
+*.wav
+*.EXT
+
+# Binaries
+*.o
+*.com
+*.exe
+*.lnk
+*.jar
+*.bin
+
+# Data
+*.dat
+*.csv
+*.json
+*.txt
+*.sav
+*.svg
+
+# Temp
+*.temp
+*.tmp
