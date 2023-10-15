@@ -2,7 +2,7 @@
 
 CC=g++
 
-LIBS=-lm
+LIBS=-lSDL2main -lSDL2 -lm -lGL -lGLU -lglut
 
 CFLAGS=-g
 OFLAGS=-I src
