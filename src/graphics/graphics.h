@@ -3,7 +3,6 @@
 
 #include <iostream>
 #include <SDL2/SDL.h>
-#include <GL/gl.h>
 
 void message();
 
