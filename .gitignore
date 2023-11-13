@@ -37,7 +37,6 @@ build
 *.dat
 *.csv
 *.json
-*.txt
 *.sav
 *.svg
 
