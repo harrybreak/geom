@@ -2,6 +2,11 @@
 assets/*
 make/*
 
+build
+.vscode
+.cache
+
+
 # Media files
 *.png
 *.jpg
