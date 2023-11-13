@@ -17,5 +17,6 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -Og -ggdb3")
 file(GLOB sources src/*.cpp src/*.inl src/*.hpp)
 
 add_executable(Simulator ${sources})
-target_link_libraries(Simulator PUBLIC SDL2-static SDL2_ttf SDL2_image glm)
+#target_link_libraries(Simulator PUBLIC SDL2-static SDL2_ttf SDL2_image glm)
+target_link_libraries(Simulator PUBLIC SDL2-static glm)
 #target_include_directories(SchedulerSimulator PRIVATE ${SDL2_INCLUDE_DIRS})
