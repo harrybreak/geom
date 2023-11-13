@@ -51,15 +51,6 @@ void Application::RenderScene(SDL_Renderer* renderer, Vector2i viewportOffset)
 	SDL_RenderClear(renderer);
 
 	DrawGrid(renderer, viewportOffset);
-
-
-	SDL_Color color;
-	color.r = 1;
-	color.g = 1;
-	color.b = 1;
-	color.a = 1;
-	DrawLine(renderer, viewportOffset.x + 20, viewportOffset.y + 20, viewportOffset.x + 80, viewportOffset.y + 56, color);
-
 }
 
 
