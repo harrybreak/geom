@@ -5,10 +5,17 @@
 #include "Object.hpp"
 
 #include <vector>
+#include <map>
 #include <SDL2/SDL.h>
 #include "glm/fwd.hpp"
 #include <glm/glm.hpp>
 
+/**
+ * A Polygon is an object with vertices (m_Vertices) that are connected together making a shape
+ * and which coordinates are relative to its __position__.
+ * 
+ * It also stores its displaying color (m_Color)
+*/
 class Polygon : public Object
 {
 private:
@@ -19,11 +26,15 @@ public:
 
 	Polygon(const std::vector<Vertex<float32>>& vertices, SDL_Color color);
 
-	const std::vector<Vertex<float32>>& GetVertices() const;
+	// Returns the absolute coordinates of each vertex
+	std::vector<Vertex<float32>> GetVertices();
+
+	// Returns the absolute coordinates of each pair of vertices
+	std::vector<segment> GetEdges();
 
 	void Render(SDL_Renderer* renderer, glm::mat3 projectionTransform);
 
 	void Rotate(float angle) override;
 
-	virtual bool Hit(const Polygon& p);
+	virtual bool Hit(Polygon p);
 };

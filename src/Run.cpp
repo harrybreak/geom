@@ -45,5 +45,8 @@ int32 main()
 	Application application(&scene);
 	application.Run();
 
+	if (polygon.Hit(polygon2))
+		std::cout << "The red square hits the blue weird shape" << std::endl;
+
 	return 0;
 }

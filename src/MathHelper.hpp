@@ -36,3 +36,8 @@ glm::vec2 ComputeCentroid(const std::vector<Vertex<float32>>& vertices)
 
 	return centroid;
 }
+
+float32 det(Vertex<float32> p, Vertex<float32> q, Vertex<float32> r)
+{
+	return (q.x - p.x) * (r.y - p.y) - (q.y - p.y) * (r.x - p.x);
+}

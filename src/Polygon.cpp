@@ -17,11 +17,25 @@ Polygon::Polygon(const std::vector<Vertex<float32>>& vertices, SDL_Color color) 
 	for (Vertex<float32> vert : vertices) m_Vertices.push_back(vert - bar);
 }
 
-const std::vector<Vertex<float32>>& Polygon::GetVertices() const
+std::vector<Vertex<float32>> Polygon::GetVertices()
 {
-	return m_Vertices;
+	std::vector<Vertex<float32>> r = std::vector<Vertex<float32>>();
+	for (auto vert : m_Vertices)
+		r.push_back(vert + Vertex<float32>(position));
+	return r;
 }
 
+std::vector<segment> Polygon::GetEdges()
+{
+	std::vector<segment> r = std::vector<segment>();
+	Vertex<float32> firstVertex = m_Vertices.back() + Vertex<float32>(position);
+	for (auto vert : m_Vertices)
+	{
+		r.push_back({firstVertex + Vertex<float32>(position) , vert + Vertex<float32>(position)});
+		firstVertex = vert;
+	}
+	return r;
+}
 
 void Polygon::Render(SDL_Renderer* renderer, glm::mat3 projectionTransform)
 {
@@ -56,7 +70,20 @@ void Polygon::Rotate(float angle)
 	}
 }
 
-bool Polygon::Hit(const Polygon& p)
+bool Polygon::Hit(Polygon p)
 {
+	std::vector<segment> myEdges = GetEdges();
+	std::vector<segment> itsEdges= p.GetEdges();
+
+	for (auto myEdge : myEdges)
+	{
+		for (auto itsEdge : itsEdges)
+		{
+			if (det(myEdge.first, itsEdge.first, itsEdge.second)* det(myEdge.second, itsEdge.first, itsEdge.second)<= 0 &&
+				det(itsEdge.first, myEdge.first, myEdge.second) * det(itsEdge.second, myEdge.first, myEdge.second) <= 0)
+				return true;
+		}
+	}
+
 	return false;
 }
