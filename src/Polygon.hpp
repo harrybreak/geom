@@ -25,4 +25,5 @@ public:
 
 	void Rotate(float angle) override;
 
+	virtual bool Hit(const Polygon& p);
 };

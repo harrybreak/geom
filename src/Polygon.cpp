@@ -6,9 +6,15 @@
 
 #include <iostream>
 
-Polygon::Polygon(const std::vector<Vertex<float32>>& vertices, SDL_Color color) : m_Vertices(vertices), m_Color(color)
+Polygon::Polygon(const std::vector<Vertex<float32>>& vertices, SDL_Color color) : m_Color(color)
 {
-
+	m_Vertices.clear();
+	Vertex<float32> bar((float32) 0.0, (float32)0.0);
+	for (const Vertex<float32>& vert : vertices) bar += vert;
+	bar /= ((float32)vertices.size());
+	position.x = bar.x;
+	position.y = bar.y;
+	for (Vertex<float32> vert : vertices) m_Vertices.push_back(vert - bar);
 }
 
 const std::vector<Vertex<float32>>& Polygon::GetVertices() const
@@ -41,14 +47,16 @@ void Polygon::Render(SDL_Renderer* renderer, glm::mat3 projectionTransform)
 
 void Polygon::Rotate(float angle)
 {
-
 	for (auto& vertex : m_Vertices)
 	{
 		glm::vec2 vertexPosition(vertex.x, vertex.y);
-
 		RRotate(&vertexPosition, position, angle);
-		//RRotate(&vertexPosition, ComputeCentroid(m_Vertices), angle);
 		vertex.x = vertexPosition.x;
 		vertex.y = vertexPosition.y;
 	}
+}
+
+bool Polygon::Hit(const Polygon& p)
+{
+	return false;
 }
