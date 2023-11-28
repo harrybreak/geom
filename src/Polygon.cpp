@@ -64,11 +64,20 @@ void Polygon::Rotate(float angle)
 	for (auto& vertex : m_Vertices)
 	{
 		glm::vec2 vertexPosition(vertex.x, vertex.y);
-		RRotate(&vertexPosition, position, angle);
+		RRotate(&vertexPosition, glm::vec2(0, 0), angle);
 		vertex.x = vertexPosition.x;
 		vertex.y = vertexPosition.y;
 	}
 }
+
+void Polygon::Translate(glm::vec2 delta)
+{
+	Object::Translate(delta);
+
+	for (auto& vertex : m_Vertices)
+		std::cout << "Vertex: (" << (vertex.x + position.x) << "; " << (vertex.y + position.y) << ")" << std::endl;
+}
+
 
 bool Polygon::Hit(Polygon p)
 {

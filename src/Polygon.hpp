@@ -36,5 +36,7 @@ public:
 
 	void Rotate(float angle) override;
 
+	void Translate(glm::vec2 delta) override;
+
 	virtual bool Hit(Polygon p);
 };
