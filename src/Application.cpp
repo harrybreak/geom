@@ -163,12 +163,21 @@ void Application::Run()
                     if (SDL_GetModState() & KMOD_SHIFT)
                     {
                         //m_ViewportOffset.x -= event.wheel.y * 10;
-						m_ViewportTransform[2][0] -= event.wheel.y * 10;
+						//m_ViewportTransform[2][0] -= event.wheel.y * 10;
                     }
                     else
                     {
                         //m_ViewportOffset.y -= event.wheel.y * 10;
-						m_ViewportTransform[2][1] -= event.wheel.y * 10;
+						//m_ViewportTransform[2][1] -= event.wheel.y * 10;
+
+
+						float scaleIncrement = 0.1f;
+
+            			float scaleMultiplier = (event.wheel.y > 0) ? (1.0f - scaleIncrement) : (1.0f + scaleIncrement);
+
+						m_ViewportScale = glm::vec2(scaleMultiplier, scaleMultiplier);
+
+						m_ViewportTransform = glm::scale(glm::mat4(m_ViewportTransform), glm::vec3(m_ViewportScale, 1));
                     }
                 }
             }
