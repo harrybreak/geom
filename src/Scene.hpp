@@ -22,6 +22,8 @@ public:
 
 	Object* GetObject(size_t index);
 
+	const std::vector<Object*>& GetObjects() const;
+
 	void Render(SDL_Renderer* renderer, glm::mat3 projectionTransform);
 
 };

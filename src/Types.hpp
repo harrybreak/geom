@@ -15,6 +15,3 @@ typedef unsigned long long	uint64;
 
 typedef float               float32;
 typedef double              float64;
-
-
-static_assert(sizeof(uint32) == 4 && sizeof(int64) == 8);

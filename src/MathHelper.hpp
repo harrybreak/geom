@@ -22,7 +22,8 @@ void RRotate(glm::vec2* vertexCoordinates, glm::vec2 pivot, float angle)
 	*vertexCoordinates = glm::vec2(transformedPosition);
 }
 
-glm::vec2 ComputeCentroid(const std::vector<Vertex<float32>>& vertices)
+//Deprecated
+glm::vec2 ComputeCentroid(const std::vector<Vertex>& vertices)
 {
 	glm::vec2 sum(0.0f);
 
@@ -35,9 +36,4 @@ glm::vec2 ComputeCentroid(const std::vector<Vertex<float32>>& vertices)
 	glm::vec2 centroid = sum / static_cast<float32>(vertices.size());
 
 	return centroid;
-}
-
-float32 det(Vertex<float32> p, Vertex<float32> q, Vertex<float32> r)
-{
-	return (q.x - p.x) * (r.y - p.y) - (q.y - p.y) * (r.x - p.x);
 }

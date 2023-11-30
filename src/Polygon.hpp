@@ -1,7 +1,9 @@
 #pragma once
 
+#include "SDL_pixels.h"
 #include "Types.hpp"
 #include "Vertex.hpp"
+#include "Edge.hpp"
 #include "Object.hpp"
 
 #include <vector>
@@ -19,24 +21,38 @@
 class Polygon : public Object
 {
 private:
-	std::vector<Vertex<float32>> m_Vertices;
-	SDL_Color m_Color;
+	std::vector<Vertex> m_Vertices;
+	std::vector<Edge> m_Edges;
+
+	SDL_Color m_CurrentColor;
 
 public:
 
-	Polygon(const std::vector<Vertex<float32>>& vertices, SDL_Color color);
+	SDL_Color Color;
+
+	Polygon(const std::vector<Vertex>& vertices, SDL_Color color);
 
 	// Returns the absolute coordinates of each vertex
-	std::vector<Vertex<float32>> GetVertices();
+	inline constexpr const std::vector<Vertex>& GetVertices() const
+	{
+		return m_Vertices;
+	}
 
 	// Returns the absolute coordinates of each pair of vertices
-	std::vector<segment> GetEdges();
+	inline constexpr const std::vector<Edge>& GetEdges() const
+	{
+		return m_Edges;
+	}
 
 	void Render(SDL_Renderer* renderer, glm::mat3 projectionTransform);
 
 	void Rotate(float angle) override;
 
 	void Translate(glm::vec2 delta) override;
+
+	void SetColor(SDL_Color color);
+
+	glm::vec2 ComputeLocalToWorldPosition(glm::vec2 localPosition) const;
 
 	virtual bool Hit(Polygon p);
 };

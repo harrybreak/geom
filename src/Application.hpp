@@ -16,6 +16,8 @@
 #include "glm/fwd.hpp"
 #include <glm/gtc/matrix_transform.hpp>
 
+#include "PhysicsEngine.hpp"
+
 
 #define DEFAULT_WINDOW_WIDTH 800
 #define DEFAULT_WINDOW_HEIGHT 600
@@ -31,6 +33,8 @@ private:
     SDL_Renderer* m_Renderer;
 
 	Scene* m_pScene;
+
+	PhysicsEngine physicsEngine;
 
 	glm::vec2 m_ViewportScale;
 	glm::mat3 m_ViewportTransform;

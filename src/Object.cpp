@@ -5,9 +5,13 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/constants.hpp>
 
-Object::Object() : position(0, 0)
-{
+#include <iostream>
 
+static uint32 s_ObjectCount = 0;
+
+Object::Object() : position(0, 0), m_Id(s_ObjectCount++)
+{
+	std::cout << "ID: " << m_Id << std::endl;
 }
 
 Object::Object(glm::vec2 position) : position(position)

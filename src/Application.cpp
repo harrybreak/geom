@@ -1,4 +1,5 @@
 #include "Application.hpp" 
+#include "PhysicsEngine.hpp"
 #include "Scene.hpp"
 #include "Vector2.hpp"
 #include "glm/fwd.hpp"
@@ -10,7 +11,7 @@
 //TTF_Font* font = nullptr;
 
 Application::Application(Scene* scene) : 
-m_Window(nullptr), m_Renderer(nullptr), /*m_ViewportOffset(),*/ m_WindowExtent(), m_pScene(scene), m_ViewportScale(2, 2), m_ViewportTransform(1)
+m_Window(nullptr), m_Renderer(nullptr), /*m_ViewportOffset(),*/ m_WindowExtent(), m_pScene(scene), m_ViewportScale(4, 4), m_ViewportTransform(1), physicsEngine(m_pScene)
 {
 
 }
@@ -26,6 +27,8 @@ void Application::Init()
     if (m_Window == nullptr || m_Renderer == nullptr)
         return;
 
+	physicsEngine.Init(PhysicsEngine::CollisionSolverType::SAT);
+
     /*font = TTF_OpenFont("JetBrainsMono-Regular.ttf", 20);
 
     if (font == nullptr)
@@ -40,6 +43,9 @@ void Application::Shutdown()
 {
 	//TTF_CloseFont(font);
     //TTF_Quit();
+
+	physicsEngine.Shutdown();
+
     SDL_DestroyRenderer(m_Renderer);
     SDL_DestroyWindow(m_Window);
     SDL_Quit();
@@ -74,13 +80,8 @@ void Application::DrawGrid(SDL_Renderer* renderer, Vector2i viewportOffset)
 
 void Application::DrawLine(SDL_Renderer* renderer, int x1, int y1, int x2, int y2, SDL_Color color)
 {
-    // Set the drawing color
     SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, color.a);
-
-    // Draw the line
     SDL_RenderDrawLine(renderer, x1, y1, x2, y2);
-
-    // Reset drawing color (optional)
     SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
 }
 
@@ -101,8 +102,14 @@ void Application::Run()
 	m_WindowExtent.width = DEFAULT_WINDOW_WIDTH;
 	m_WindowExtent.height = DEFAULT_WINDOW_HEIGHT;
 
+	uint32 index = 0;
+
     while (isRunning)
     {
+		physicsEngine.Update();
+
+		m_pScene->GetObject(1)->Rotate(0.01f);
+
         while (SDL_PollEvent(&event) != 0)
         {
             if (event.type == SDL_QUIT)
@@ -117,25 +124,28 @@ void Application::Run()
                     case SDLK_LEFT:
                         //m_ViewportOffset.x -= 10;
 						//m_ViewportTransform[2][0] -= 10;
-						m_pScene->GetObject(0)->Translate(glm::vec2(-1.0f, 0.0f));
+						m_pScene->GetObject(index)->Translate(glm::vec2(-1.0f, 0.0f));
                         break;
                     case SDLK_RIGHT:
                         //m_ViewportOffset.x += 10;
 						//m_ViewportTransform[2][0] += 10;
-						m_pScene->GetObject(0)->Translate(glm::vec2(1.0f, 0.0f));
+						m_pScene->GetObject(index)->Translate(glm::vec2(1.0f, 0.0f));
                         break;
                     case SDLK_UP:
                         //m_ViewportOffset.y -= 10;
 						//m_ViewportTransform[2][1] -= 10;
-						m_pScene->GetObject(0)->Translate(glm::vec2(0.0f, -1.0f));
+						m_pScene->GetObject(index)->Translate(glm::vec2(0.0f, -1.0f));
                         break;
                     case SDLK_DOWN:
                         //m_ViewportOffset.y += 10;
 						//m_ViewportTransform[2][1] += 10;
-						m_pScene->GetObject(0)->Translate(glm::vec2(0.0f, 1.0f));
+						m_pScene->GetObject(index)->Translate(glm::vec2(0.0f, 1.0f));
                         break;
                     case SDLK_p:
-						m_pScene->GetObject(0)->Rotate(5.0f);
+						m_pScene->GetObject(index)->Rotate(5.0f);
+						break;
+					case SDLK_n:
+						index = ++index % m_pScene->GetObjects().size();
 						break;
                 }
             }

@@ -6,8 +6,6 @@
 
 class Viewport
 {
-private:
-
 public:
 
 	static glm::vec3 TransformToScreenSpace(glm::vec2 vertex, glm::mat3 projectionTransform)

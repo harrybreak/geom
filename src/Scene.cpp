@@ -7,6 +7,12 @@ Scene::Scene() : m_Objects()
 
 }
 
+const std::vector<Object*>& Scene::GetObjects() const
+{
+	return m_Objects;
+}
+
+
 void Scene::Instantiate(Object* object)
 {
     m_Objects.push_back(object);
