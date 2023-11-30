@@ -5,6 +5,7 @@
 #include "glm/fwd.hpp"
 #include <string>
 #include <limits>
+#include <chrono>
 
 
 
@@ -91,6 +92,8 @@ void Application::Run()
 	m_ViewportTransform = glm::scale(glm::mat4(m_ViewportTransform), glm::vec3(m_ViewportScale, 1));
 	Init();
 
+    using namespace std::chrono;
+    auto lastTime = steady_clock::now();
 
     bool isRunning = true;
     SDL_Event event;
@@ -106,9 +109,14 @@ void Application::Run()
 
     while (isRunning)
     {
+
+		auto currentTime = steady_clock::now();
+        float deltaTime = duration_cast<duration<float>>(currentTime - lastTime).count();
+        lastTime = currentTime;
+
 		physicsEngine.Update();
 
-		m_pScene->GetObject(1)->Rotate(0.01f);
+		m_pScene->GetObject(1)->Rotate(60.f * deltaTime);
 
         while (SDL_PollEvent(&event) != 0)
         {
@@ -142,7 +150,7 @@ void Application::Run()
 						m_pScene->GetObject(index)->Translate(glm::vec2(0.0f, 1.0f));
                         break;
                     case SDLK_p:
-						m_pScene->GetObject(index)->Rotate(5.0f);
+						m_pScene->GetObject(index)->Rotate(10000.0f * deltaTime);
 						break;
 					case SDLK_n:
 						index = ++index % m_pScene->GetObjects().size();
