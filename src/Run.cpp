@@ -54,10 +54,9 @@ int32 main()
 	p1.Translate(glm::vec2(-500, -200));
 
 	Scene scene;
-	scene.Instantiate(&polygon);
-	scene.Instantiate(&polygon2);
-	scene.Instantiate(&polygon3);
-	//scene.Instantiate(&p1);
+	scene.push_back(&polygon);
+	scene.push_back(&polygon2);
+	scene.push_back(&polygon3);
 
 	
 	Application application(&scene);

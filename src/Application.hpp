@@ -9,9 +9,7 @@
 #include "Types.hpp"
 
 #include <SDL2/SDL.h>
-//#include <SDL_ttf.h>
 
-#include "Vector2.hpp"
 #include <glm/glm.hpp>
 #include "glm/fwd.hpp"
 #include <glm/gtc/matrix_transform.hpp>
@@ -39,8 +37,7 @@ private:
 	glm::vec2 m_ViewportScale;
 	glm::mat3 m_ViewportTransform;
 
-	//Vector2i m_ViewportOffset;
-	Vector2i m_WindowExtent;
+	Vertex m_WindowExtent;
 
 	//Text
 	std::vector<SDL_Surface*> m_TextSurfaces;
@@ -58,9 +55,9 @@ private:
 
 	void Shutdown();
 
-	void DrawGrid(SDL_Renderer* renderer, Vector2i viewportOffset);
+	void DrawGrid(SDL_Renderer* renderer, Vertex viewportOffset);
 
-	void RenderScene(SDL_Renderer* renderer, Vector2i viewportOffset);
+	void RenderScene(SDL_Renderer* renderer, Vertex viewportOffset);
 
 	void DrawLine(SDL_Renderer* renderer, int x1, int y1, int x2, int y2, SDL_Color color);
 

@@ -12,11 +12,13 @@
 #include "glm/fwd.hpp"
 #include <glm/glm.hpp>
 
+#include <initializer_list>
+
 /**
  * A Polygon is an object with vertices (m_Vertices) that are connected together making a shape
- * and which coordinates are relative to its __position__.
+ * and which coordinates are relative to its Object.position (the inherited class).
  * 
- * It also stores its displaying color (m_Color)
+ * It also stores its displaying color (m_Color).
 */
 class Polygon : public Object
 {
@@ -30,6 +32,7 @@ public:
 
 	SDL_Color Color;
 
+	Polygon(std::initializer_list<Vertex> vertices, SDL_Color color);
 	Polygon(const std::vector<Vertex>& vertices, SDL_Color color);
 
 	// Returns the absolute coordinates of each vertex

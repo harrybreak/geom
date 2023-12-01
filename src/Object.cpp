@@ -7,17 +7,11 @@
 
 #include <iostream>
 
-static uint32 s_ObjectCount = 0;
+uint32 Object::s_count = 0;
 
-Object::Object() : position(0, 0), m_Id(s_ObjectCount++)
-{
-	std::cout << "ID: " << m_Id << std::endl;
-}
+Object::Object(glm::vec2 position) : position(position) {}
+Object::Object() : position(0, 0), m_Id(s_count++) {}
 
-Object::Object(glm::vec2 position) : position(position)
-{
-
-}
 
 void Object::Translate(glm::vec2 delta)
 {
@@ -27,17 +21,7 @@ void Object::Translate(glm::vec2 delta)
 	position = glm::vec2(translatedPosition);
 }
 
-void Object::Scale(glm::vec2 factor)
-{
-
-}
-
-void Object::Rotate(glm::vec2 pivot, float32 angle)
-{
-
-}
-
-void Object::Rotate(float angle)
-{
-
-}
+// Overrided methods
+void Object::Scale(glm::vec2 factor) {}
+void Object::Rotate(glm::vec2 pivot, float32 angle) {}
+void Object::Rotate(float angle) {}

@@ -33,9 +33,9 @@ void PhysicsEngine::Shutdown()
 
 bool PhysicsEngine::CheckForCollision(const Polygon* polygon)
 {
-    for (size_t i = 0; i < m_pScene->GetObjects().size(); i++)
+    for (size_t i = 0; i < m_pScene->size(); i++)
     {
-        Polygon* polygonP = dynamic_cast<Polygon*>(m_pScene->GetObjects()[i]);
+        Polygon* polygonP = dynamic_cast<Polygon*>(m_pScene->at(i));
 
         if (polygonP == nullptr || polygonP == polygon)
             continue;
@@ -49,9 +49,9 @@ bool PhysicsEngine::CheckForCollision(const Polygon* polygon)
 
 void PhysicsEngine::Update()
 {
-    for (size_t i = 0; i < m_pScene->GetObjects().size(); i++)
+    for (size_t i = 0; i < m_pScene->size(); i++)
     {
-        Polygon* polygonP = dynamic_cast<Polygon*>(m_pScene->GetObjects()[i]);
+        Polygon* polygonP = dynamic_cast<Polygon*>(m_pScene->at(i));
 
         if (polygonP == nullptr)
             continue;

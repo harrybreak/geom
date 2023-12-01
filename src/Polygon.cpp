@@ -7,6 +7,24 @@
 #include <cstddef>
 #include <iostream>
 
+Polygon::Polygon(std::initializer_list<Vertex> vertices, SDL_Color color) : Color(color), m_CurrentColor(color), m_Vertices()
+{
+	// Vertex position must be stored relative to the polygon position aka polygon centroid.
+	// In other world vertex position are local to the polygon.
+
+	for (auto worldVertex : vertices) //TODO: add WorldToLocal and LocalToWorld
+		m_Vertices.push_back(Vertex(worldVertex.x + position.x, worldVertex.y + position.y));
+
+	for (size_t i = 0; i < vertices.size(); i++)
+		m_Edges.emplace_back(Edge(&m_Vertices[i % vertices.size()], &m_Vertices[(i + 1) % vertices.size()]));
+
+	std::cout << "Vertex count: " << m_Vertices.size() << std::endl;
+	std::cout << "Edge count: " << m_Edges.size() << std::endl;
+
+	for (auto edge : m_Edges)
+		std::cout << "{" << "(" << edge.GetSource().x << "; " << edge.GetSource().y << ")" << ", " << "(" << edge.GetDestination().x << "; " << edge.GetDestination().y << ")" << "}" << std::endl;
+}
+
 Polygon::Polygon(const std::vector<Vertex>& vertices, SDL_Color color) : Color(color), m_CurrentColor(color), m_Vertices()
 {
 	// Vertex position must be stored relative to the polygon position aka polygon centroid.
@@ -23,7 +41,6 @@ Polygon::Polygon(const std::vector<Vertex>& vertices, SDL_Color color) : Color(c
 
 	for (auto edge : m_Edges)
 		std::cout << "{" << "(" << edge.GetSource().x << "; " << edge.GetSource().y << ")" << ", " << "(" << edge.GetDestination().x << "; " << edge.GetDestination().y << ")" << "}" << std::endl;
-
 }
 
 
@@ -74,7 +91,7 @@ void Polygon::Rotate(float angle)
 	for (auto& vertex : m_Vertices)
 	{
 		glm::vec2 vertexPosition(vertex.x, vertex.y);
-		RRotate(&vertexPosition, glm::vec2(0, 0), angle);
+		RRotate(&vertexPosition, angle);
 		vertex.x = vertexPosition.x;
 		vertex.y = vertexPosition.y;
 	}

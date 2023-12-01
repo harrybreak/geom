@@ -12,28 +12,37 @@
 #include <glm/gtc/constants.hpp>
 #include "Vertex.hpp"
 
-void RRotate(glm::vec2* vertexCoordinates, glm::vec2 pivot, float angle)
+/**
+ * RRotate(vertexCoordinates, pivot, angle):
+ * compute and apply the 2D-rotation to 'vertexCoordinates'
+ * with the angle 'angle' given in degrees /!\
+ */
+void RRotate(Vertex* vertexCoordinates, float angle)
 {
-	glm::mat4 translateToPivot = glm::translate(glm::mat4(1), glm::vec3(pivot, 1));
+	glm::mat4 translateToPivot = glm::translate(glm::mat4(1), glm::vec3(0, 0, 1));
 	glm::mat4 rotationMatrix = glm::rotate(glm::mat4(1.0f), glm::radians(angle), glm::vec3(0.0f, 0.0f, 1.0f));
-	glm::mat4 translateBack = glm::translate(glm::mat4(1.0f), glm::vec3(-pivot, 1));
+	glm::mat4 translateBack = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 1));
 	glm::mat4 finalTransformation = translateBack * rotationMatrix * translateToPivot;
 	glm::vec4 transformedPosition = finalTransformation * glm::vec4(glm::vec3(*vertexCoordinates, 1.0f), 1.0f);
-	*vertexCoordinates = glm::vec2(transformedPosition);
+	*vertexCoordinates = Vertex(transformedPosition);
 }
 
-//Deprecated
-glm::vec2 ComputeCentroid(const std::vector<Vertex>& vertices)
+/**
+ * @deprecated
+ * 
+ * ComputeCentroid(array<Vertex> vertices) returns the centroid vector of the set 'vertices'
+ */
+Vertex ComputeCentroid(const std::vector<Vertex>& vertices)
 {
-	glm::vec2 sum(0.0f);
+	Vertex sum(0.0f);
 
 	for (const auto& vertex : vertices)
 	{
-		glm::vec2 vertexPosition(vertex.x, vertex.y);
-		sum += vertexPosition;// + glm::vec2(-450, -150);
+		Vertex vertexPosition(vertex.x, vertex.y);
+		sum += vertexPosition;// + Vertex(-450, -150);
 	}
 
-	glm::vec2 centroid = sum / static_cast<float32>(vertices.size());
+	Vertex centroid = sum / static_cast<float32>(vertices.size());
 
 	return centroid;
 }

@@ -11,7 +11,7 @@
 
 float32 SATCollisionSolver::FindMinimumSeparationDistance(const Polygon* p, const Polygon* q)
 {
-    float32 separationDistance = std::numeric_limits<float>::lowest();
+    float32 separationDistance = std::numeric_limits<float32>::lowest();
 
 	for (auto pEdge : p->GetEdges())
     {
@@ -20,7 +20,8 @@ float32 SATCollisionSolver::FindMinimumSeparationDistance(const Polygon* p, cons
         for (auto qVertex : q->GetVertices())
         {
 			// Project the vertices on the normal (perpendicualr to the edge) axis.
-            float32 projection = glm::dot(q->ComputeLocalToWorldPosition(qVertex) - p->ComputeLocalToWorldPosition(pEdge.GetSource()), pEdge.ComputeNormal());
+            float32 projection = glm::dot(  q->ComputeLocalToWorldPosition(qVertex) - p->ComputeLocalToWorldPosition(pEdge.GetSource()) ,
+                                            pEdge.ComputeNormal());
 			minSeparationDistance = std::min(minSeparationDistance, projection);
         }
 

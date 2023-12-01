@@ -7,23 +7,11 @@
 #include "Types.hpp"
 #include <glm/glm.hpp>
 
-class Scene
+/**
+ * A scene is a list of drawable objects.
+ */
+class Scene : public std::vector<Object*>
 {
-
-private:
-
-	std::vector<Object*> m_Objects;
-
-public:
-
-	Scene();
-
-	void Instantiate(Object* object);
-
-	Object* GetObject(size_t index);
-
-	const std::vector<Object*>& GetObjects() const;
-
-	void Render(SDL_Renderer* renderer, glm::mat3 projectionTransform);
-
+	public:
+		void Render(SDL_Renderer* renderer, glm::mat3 projectionTransform);
 };
