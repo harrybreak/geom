@@ -1,5 +1,6 @@
 #include "Scene.hpp"
 #include "Object.hpp"
+#include "MathHelper.hpp"
 
 
 Scene::Scene() : m_Objects()
@@ -28,3 +29,17 @@ void Scene::Render(SDL_Renderer* renderer, glm::mat3 projectionTransform)
 	for (auto& object : m_Objects)
 		object->Render(renderer, projectionTransform);
 }
+
+Polygon* Scene::PickObject(glm::vec2 mousePosition) const
+{
+	for (auto object : m_Objects)
+	{
+		Polygon* polygon = dynamic_cast<Polygon*>(object);
+
+		if (polygon != nullptr)
+			if (InclusionTest(polygon, mousePosition) >= 0)
+				polygon;
+	}
+	return nullptr;
+}
+

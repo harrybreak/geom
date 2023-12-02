@@ -2,6 +2,7 @@
 #include "PhysicsEngine.hpp"
 #include "Scene.hpp"
 #include "Vector2.hpp"
+#include "Viewport.hpp"
 #include "glm/fwd.hpp"
 #include <string>
 #include <limits>
@@ -196,6 +197,15 @@ void Application::Run()
                 isDragging = true;
 				lastMousePosition.x = event.button.x;
 				lastMousePosition.y = event.button.y;
+
+				auto pos = Viewport::TransformScreenSpaceToWorld(glm::vec2(lastMousePosition.x, lastMousePosition.y), m_ViewportTransform);
+
+				std::cout << "(" << pos.x << "; " << pos.y << ")" << std::endl;
+				//TODO: call some function to determine what's the polygon containing pos.
+
+				auto polygon = m_pScene->PickObject(pos);
+				if (polygon)
+					polygon->SetColor({255, 0, 0, 255});
             }
 
             if (event.type == SDL_MOUSEBUTTONUP && event.button.button == SDL_BUTTON_LEFT)

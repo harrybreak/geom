@@ -5,7 +5,9 @@
 #include "Object.hpp"
 #include "SDL_render.h"
 #include "Types.hpp"
+#include "glm/fwd.hpp"
 #include <glm/glm.hpp>
+#include "Polygon.hpp"
 
 class Scene
 {
@@ -23,6 +25,8 @@ public:
 	Object* GetObject(size_t index);
 
 	const std::vector<Object*>& GetObjects() const;
+
+	Polygon* PickObject(glm::vec2 mousePosition) const;
 
 	void Render(SDL_Renderer* renderer, glm::mat3 projectionTransform);
 

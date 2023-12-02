@@ -40,8 +40,8 @@ void Polygon::Render(SDL_Renderer* renderer, glm::mat3 projectionTransform)
 		glm::vec2 v1(position.x + firstVertex.x, position.y + firstVertex.y);
 		glm::vec2 v2(position.x + vertex.x, position.y + vertex.y);
 
-		auto screenSpaceCoordinatesV1 = Viewport::TransformToScreenSpace(v1, projectionTransform);
-		auto screenSpaceCoordinatesV2 = Viewport::TransformToScreenSpace(v2, projectionTransform);
+		auto screenSpaceCoordinatesV1 = Viewport::TransformWorldToScreenSpace(v1, projectionTransform);
+		auto screenSpaceCoordinatesV2 = Viewport::TransformWorldToScreenSpace(v2, projectionTransform);
 
         SDL_RenderDrawLine(renderer, screenSpaceCoordinatesV1.x, screenSpaceCoordinatesV1.y, screenSpaceCoordinatesV2.x, screenSpaceCoordinatesV2.y);
         firstVertex = vertex;
@@ -54,7 +54,7 @@ void Polygon::Render(SDL_Renderer* renderer, glm::mat3 projectionTransform)
 
 		// Transform the midpoint to screen space coordinates
 		glm::vec2 v(midpoint.x + position.x, midpoint.y + position.y);
-		auto screenSpaceCoordinatesV = Viewport::TransformToScreenSpace(v, projectionTransform);
+		auto screenSpaceCoordinatesV = Viewport::TransformWorldToScreenSpace(v, projectionTransform);
 
 		// DEBUG: Draw the normals
 		SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);

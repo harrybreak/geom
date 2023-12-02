@@ -1,5 +1,6 @@
 #include <vector>
 
+#include "MathHelper.hpp"
 #include "Types.hpp"
 #include "Application.hpp"
 #include "Vertex.hpp"
@@ -10,6 +11,12 @@
 
 int32 main()
 {
+
+	std::cout << "TEST: " << ComputeOrientation(glm::vec3(10.0f, 10.0f, 0.0f), glm::vec3(20.0f, 10.0f, 0.0f), glm::vec3(0.0f, 60.0f, 0.0f)) << std::endl;
+
+
+
+
 	std::vector<Vertex> vertices;
 	vertices.push_back(Vertex(10,10));
 	vertices.push_back(Vertex(10,-10));
