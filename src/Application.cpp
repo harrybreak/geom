@@ -29,7 +29,7 @@ void Application::Init()
     if (m_Window == nullptr || m_Renderer == nullptr)
         return;
 
-	physicsEngine.Init(PhysicsEngine::CollisionSolverType::SAT);
+	physicsEngine.Init(PhysicsEngine::CollisionSolverType::GJK);
 
     /*font = TTF_OpenFont("JetBrainsMono-Regular.ttf", 20);
 

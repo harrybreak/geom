@@ -1,5 +1,6 @@
 #include "PhysicsEngine.hpp"
 #include "CollisionSolver.hpp"
+#include "GJKCollisionSolver.hpp"
 #include "Polygon.hpp"
 #include "Scene.hpp"
 
@@ -20,8 +21,7 @@ void PhysicsEngine::Init(CollisionSolverType collisionSolver)
 			m_pCollisionSolver = new SATCollisionSolver();
 			break;
 		case CollisionSolverType::GJK:
-			//TODO: implement;
-			std::runtime_error("Not implemented.");
+			m_pCollisionSolver = new GJKCollisionSolver();
 			break;
 	}
 }

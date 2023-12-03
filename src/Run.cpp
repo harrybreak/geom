@@ -9,6 +9,30 @@
 #include "Point.hpp"
 #include "glm/fwd.hpp"
 
+#include <iostream>
+
+Vertex FFindFurthestPoint(const Polygon* p, glm::vec2 direction)
+{
+	std::pair<Vertex, float32> result(glm::vec2(), std::numeric_limits<float32>().lowest());
+
+	for (auto vertex : p->GetVertices())
+	{
+		float32 dotProduct = glm::dot(vertex, direction);
+
+		//std::cout << "dot: " << "(" << vertex.x << "; " << vertex.y << ")" << " -> " << dotProduct << std::endl;
+
+		if (dotProduct > result.second)
+		{
+			std::cout << "dot: " << "(" << vertex.x << "; " << vertex.y << ")" << " -> " << dotProduct << std::endl;
+
+			result.second = dotProduct;
+			result.first = vertex;
+		}
+	}
+
+	return result.first;
+}
+
 int32 main()
 {
 
@@ -26,6 +50,13 @@ int32 main()
 	SDL_Color polygonColor = {0, 255, 0, 255};
 
 	Polygon polygon(vertices, polygonColor);
+
+	/*Vertex v = FFindFurthestPoint(&polygon, glm::vec2(1, 1));
+
+	std::cout << "(" << v.x << "; " << v.y << ")" << std::endl;
+
+	return 0;*/
+
 	//polygon.Translate(glm::vec2(-500, -200));
 	//polygon.Rotate(180.0f);
 
